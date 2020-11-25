@@ -1,0 +1,30 @@
+.side-nav {
+    background-color: lightgrey;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    overflow-x: scroll;
+    padding: 20px;
+}
+
+.side-nav a {
+    display: block;
+}
+
+.side-nav a:hover {
+    color: blue;
+}
+
+.side-nav ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.side-nav .head-link {
+    font-size: 1.7em;
+}
+
+.side-nav .sub-link {
+    font-size: 1.3em;
+    color: rgb(41, 34, 34);
+}

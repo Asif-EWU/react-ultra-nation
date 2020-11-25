@@ -1,0 +1,9 @@
+.left-margin {
+    margin-left: 250px;
+}
+.home .country-section {
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

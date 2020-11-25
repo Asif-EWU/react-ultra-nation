@@ -1,0 +1,23 @@
+.single-country {
+    width: 270px;
+    background:lightgrey;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+.single-country img {
+    height: 150px;
+    width: 250px;
+}
+
+.single-country .region {
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-country .icon {
+    font-size: 25px;
+    color: white;
+}
