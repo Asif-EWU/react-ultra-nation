@@ -1,8 +1,8 @@
 .left-margin {
     margin-left: 250px;
+    padding: 30px;
 }
 .home .country-section {
-    padding: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
