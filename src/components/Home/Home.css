@@ -3,13 +3,13 @@
     padding: 15px 30px;
 }
 
-.home .headline {
+..country-section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.headline {
     text-transform: capitalize;
     width: 100%;
     margin-bottom: 30px;
-}
-
-.home .country-section {
-    display: flex;
-    flex-wrap: wrap;
 }
