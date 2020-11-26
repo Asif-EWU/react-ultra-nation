@@ -7,16 +7,19 @@ import './Home.css';
 
 const Home = () => {
     const [countryList, setCountryList] = useState([]);
-
+    let headline = "All";
     let url = 'https://restcountries.eu/rest/v2/all';
     const {regionName} = useParams();
-    if(regionName) url = `https://restcountries.eu/rest/v2/region/${regionName}`;
+    if(regionName) {
+        url = `https://restcountries.eu/rest/v2/region/${regionName}`;
+        headline = regionName;
+    }
 
     useEffect(() => {
         fetch(url)
         .then(res => res.json())
         .then(data => setCountryList(data));
-    }, []);
+    }, [url]);
 
     return (
         <div className="home">
@@ -24,6 +27,7 @@ const Home = () => {
             <SideNav />            
 
             <div className="left-margin country-section">
+                <h1 className="headline">Region: {headline} ({countryList.length})</h1>
                 {
                     countryList.map(country => <SingleCountry key={country.alpha2Code} country={country} />)
                 }
