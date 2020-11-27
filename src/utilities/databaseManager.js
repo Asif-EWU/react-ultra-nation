@@ -16,30 +16,30 @@ const getDataKey = () => {
 }
 
 // push to local storage: a temporary place for database
-const getDatabaseCart = () => {
+const getDatabase = () => {
     const dataKey = getDataKey();
     const data = localStorage.getItem(dataKey) || "{}";
     return JSON.parse(data);
 }
 
-const addToDatabaseCart = (key, count = 1) => {
-    const currentCart = getDatabaseCart();
+const addToDatabase = (key, count = 1) => {
+    const currentCart = getDatabase();
     currentCart[key] = count;
     localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
 }
 
-const removeFromDatabaseCart = key => {
-    const currentCart = getDatabaseCart();
+const removeFromDatabase = key => {
+    const currentCart = getDatabase();
     delete currentCart[key];
     localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
 }
 
-const processOrder = (cart) => {
+const clearDatabase = (cart) => {
     localStorage.removeItem(getDataKey());
 }
 
 
-export { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart, processOrder };
+export { addToDatabase, getDatabase, removeFromDatabase, clearDatabase };
 
 
 // polyfill to support older browser

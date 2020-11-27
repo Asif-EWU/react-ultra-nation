@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import SideNav from '../SideNav/SideNav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import { addToDatabase, getDatabase, removeFromDatabase } from '../../utilities/databaseManager';
 
 const CountryDetails = () => {
     const {countryKey} = useParams();
@@ -28,7 +28,7 @@ const CountryDetails = () => {
 
     const [favouriteList, setFavouriteList] = useState([]);
     useEffect(() => {
-        const savedCountryList = getDatabaseCart();
+        const savedCountryList = getDatabase();
         const countryKeys = Object.keys(savedCountryList);
         setFavouriteList(countryKeys);
     }, []);
@@ -37,11 +37,11 @@ const CountryDetails = () => {
         let newFavouriteList;
         if(favouriteList.find(fav => fav === countryKey)) {
             newFavouriteList = favouriteList.filter(favCountryKey => favCountryKey !== countryKey);
-            removeFromDatabaseCart(countryKey);
+            removeFromDatabase(countryKey);
         }
         else {
             newFavouriteList = [...favouriteList, countryKey];
-            addToDatabaseCart(countryKey);
+            addToDatabase(countryKey);
         }
 
         setFavouriteList(newFavouriteList);

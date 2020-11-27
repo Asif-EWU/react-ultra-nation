@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import { addToDatabase, getDatabase, removeFromDatabase } from '../../utilities/databaseManager';
 import Header from '../Header/Header';
 import SideNav from '../SideNav/SideNav';
 import SingleCountry from '../SingleCountry/SingleCountry';
@@ -29,7 +29,7 @@ const Home = () => {
     
     const [favouriteList, setFavouriteList] = useState([]);
     useEffect(() => {
-        const savedCountryList = getDatabaseCart();
+        const savedCountryList = getDatabase();
         const countryKeys = Object.keys(savedCountryList);
         setFavouriteList(countryKeys);
     }, []);
@@ -38,11 +38,11 @@ const Home = () => {
         let newFavouriteList;
         if(favouriteList.find(fav => fav === countryKey)) {
             newFavouriteList = favouriteList.filter(favCountryKey => favCountryKey !== countryKey);
-            removeFromDatabaseCart(countryKey);
+            removeFromDatabase(countryKey);
         }
         else {
             newFavouriteList = [...favouriteList, countryKey];
-            addToDatabaseCart(countryKey);
+            addToDatabase(countryKey);
         }
 
         setFavouriteList(newFavouriteList);
