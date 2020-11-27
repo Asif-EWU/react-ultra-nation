@@ -3,7 +3,7 @@
     padding: 15px 30px;
 }
 
-..country-section {
+.country-section {
     display: flex;
     flex-wrap: wrap;
 }

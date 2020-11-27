@@ -31,18 +31,48 @@ const CountryDetails = () => {
             <SideNav />
             <div className="left-margin">
                 <img src={flag} alt=""/>
-                <p>
-                    Name: {name} <FontAwesomeIcon className="icon" icon={faStar} /> <br/>
-                    Name Code: {alpha3Code} <br/>
-                    Capital: {capital} <br/>
-                    Nationality: {demonym} <br/>
-                    Language: {language} <br/>
-                    Population: {countryPopulation} <br/>
-                    Region: {region} <br/>
-                    Subregion: {subregion} <br/>
-                    Currency: {currency} <br/>
-                    Timezone: {timezone} <br/>
-                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <td>: {name} <FontAwesomeIcon className="icon" icon={faStar} /></td>
+                    </tr>
+                    <tr>
+                        <th>Name Code</th>
+                        <td>: {alpha3Code}</td>
+                    </tr>
+                    <tr>
+                        <th>Capital</th>
+                        <td>: {capital}</td>
+                    </tr>
+                    <tr>
+                        <th>Nationality</th>
+                        <td>: {demonym}</td>
+                    </tr>
+                    <tr>
+                        <th>Language</th>
+                        <td>: {language}</td>
+                    </tr>
+                    <tr>
+                        <th>Population</th>
+                        <td>: {countryPopulation}</td>
+                    </tr>
+                    <tr>
+                        <th>Region</th>
+                        <td>: {region}</td>
+                    </tr>
+                    <tr>
+                        <th>Subregion</th>
+                        <td>: {subregion}</td>
+                    </tr>
+                    <tr>
+                        <th>Currency</th>
+                        <td>: {currency}</td>
+                    </tr>
+                    <tr>
+                        <th>Timezone</th>
+                        <td>: {timezone}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     );

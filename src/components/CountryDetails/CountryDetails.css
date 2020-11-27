@@ -3,7 +3,11 @@
     width: 350px;
 }
 
-.country-details p {
+.country-details table {
     margin-top: 20px;
     font-size: 25px;
+}
+
+.country-details td {
+    padding-left: 20px;
 }

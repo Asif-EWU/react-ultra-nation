@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './SideNav.css';
 
-const SideNav = () => {
+const SideNav = (props) => {
+    const favouriteList = props.favouriteList;
+    
     return (
         <div className="side-nav">
             <Link className="head-link" to="/all">All</Link>
@@ -16,7 +18,7 @@ const SideNav = () => {
                 <Link className="sub-link" to="/region/americas">Americas</Link>
             </ul>
             <hr/>
-            <Link className="head-link" to="/favourites">Favourites - {100}</Link>
+            <Link className="head-link" to="/favourites">Favourites: {favouriteList && favouriteList.length}</Link>
         </div>
     );
 };
