@@ -11,7 +11,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path={["/", "/home", "/all", "/region/:regionName"]} component={Home} />
-        <Route path="/country/:countryKey" component={CountryDetails} />
+        <Route path="/countryDetails/:countryKey" component={CountryDetails} />
         <Route path="/favourites" component={Favourites} />
         <Route path="*" component={NotFound} />
       </Switch>

@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import SideNav from '../SideNav/SideNav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { addToDatabaseCart, getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
 
 const CountryDetails = () => {
     const {countryKey} = useParams();
@@ -23,18 +24,46 @@ const CountryDetails = () => {
         fetch(url)
         .then(res => res.json())
         .then(data => setCountryDetails(data));
-    }, [])
+    }, [countryKey]);
+
+    const [favouriteList, setFavouriteList] = useState([]);
+    useEffect(() => {
+        const savedCountryList = getDatabaseCart();
+        const countryKeys = Object.keys(savedCountryList);
+        setFavouriteList(countryKeys);
+    }, []);
+
+    function addFavourites(countryKey) {
+        let newFavouriteList;
+        if(favouriteList.find(fav => fav === countryKey)) {
+            newFavouriteList = favouriteList.filter(favCountryKey => favCountryKey !== countryKey);
+            removeFromDatabaseCart(countryKey);
+        }
+        else {
+            newFavouriteList = [...favouriteList, countryKey];
+            addToDatabaseCart(countryKey);
+        }
+
+        setFavouriteList(newFavouriteList);
+    }
+
+    let starIcon = <FontAwesomeIcon onClick={()=>addFavourites(countryKey)} style={{color: "black"}} className="star-icon" icon={faStar} />
+    if(favouriteList.find(fav => fav === countryKey)) {
+        starIcon = <FontAwesomeIcon onClick={()=>addFavourites(countryKey)} style={{color: "goldenrod"}} className="star-icon" icon={faStar} />
+    }
 
     return (
         <div className="country-details">
             <Header />
-            <SideNav />
+            <SideNav favouriteList={favouriteList} />
+
             <div className="left-margin">
                 <img src={flag} alt=""/>
                 <table>
+                <tbody>
                     <tr>
                         <th>Name</th>
-                        <td>: {name} <FontAwesomeIcon className="icon" icon={faStar} /></td>
+                        <td>: {name} {starIcon}</td>
                     </tr>
                     <tr>
                         <th>Name Code</th>
@@ -72,6 +101,7 @@ const CountryDetails = () => {
                         <th>Timezone</th>
                         <td>: {timezone}</td>
                     </tr>
+                </tbody>
                 </table>
             </div>
         </div>

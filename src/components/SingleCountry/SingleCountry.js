@@ -7,18 +7,18 @@ import { Link } from 'react-router-dom';
 const SingleCountry = (props) => {
     const [country, setCountry] = useState({});
     const {countryKey, favouriteList, addFavourites} = props;
-    const {flag, name, region, alpha2Code} = country;
+    const {flag, name, region} = country;
 
-    useEffect(()=>{
+    useEffect(() => {
         const url = `https://restcountries.eu/rest/v2/alpha/${countryKey}`;
         fetch(url)
         .then(res => res.json())
         .then(data => setCountry(data));
     }, []);
 
-    let starIcon = <FontAwesomeIcon onClick={()=>addFavourites(country)} style={{color: "white"}} className="icon" icon={faStar} />
-    if(favouriteList.find(fav => fav === country.alpha3Code)) {
-        starIcon = <FontAwesomeIcon onClick={()=>addFavourites(country)} style={{color: "yellow"}} className="icon" icon={faStar} />
+    let starIcon = <FontAwesomeIcon onClick={()=>addFavourites(countryKey)} style={{color: "white"}} className="star-icon" icon={faStar} />
+    if(favouriteList.find(fav => fav === countryKey)) {
+        starIcon = <FontAwesomeIcon onClick={()=>addFavourites(countryKey)} style={{color: "yellow"}} className="star-icon" icon={faStar} />
     }
 
     return (
@@ -29,7 +29,7 @@ const SingleCountry = (props) => {
                 <h4>{region}</h4>
                 {starIcon}
             </div>
-            <Link to={"/country/"+alpha2Code}><button className="btn btn-block btn-secondary mt-2">Explore</button></Link>
+            <Link to={"/countryDetails/"+countryKey}><button className="btn btn-block btn-secondary mt-2">Explore</button></Link>
         </div>
     );
 };

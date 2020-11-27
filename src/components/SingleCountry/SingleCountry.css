@@ -18,6 +18,7 @@
     justify-content: space-between;
 }
 
-.single-country .icon {
+.star-icon {
     font-size: 25px;
+    cursor: pointer;
 }

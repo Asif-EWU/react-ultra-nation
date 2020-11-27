@@ -8,8 +8,6 @@ import './Home.css';
 
 const Home = () => {
     const [countryList, setCountryList] = useState([]);
-    const [favouriteList, setFavouriteList] = useState([]);
-
     let headline = "All";
     let url = 'https://restcountries.eu/rest/v2/all';
     const {regionName} = useParams();
@@ -17,33 +15,34 @@ const Home = () => {
         url = `https://restcountries.eu/rest/v2/region/${regionName}`;
         headline = regionName;
     }
-
-    function setCountryState(data) {
-        const countryKeys = data.map(country => country.alpha3Code);
-        setCountryList(countryKeys);
-    }
-
+    
     useEffect(() => {
         fetch(url)
         .then(res => res.json())
         .then(data => setCountryState(data));
     }, [url]);
-
-    useEffect(()=>{
+    
+    function setCountryState(data) {
+        const countryKeys = data.map(country => country.alpha3Code);
+        setCountryList(countryKeys);
+    }
+    
+    const [favouriteList, setFavouriteList] = useState([]);
+    useEffect(() => {
         const savedCountryList = getDatabaseCart();
         const countryKeys = Object.keys(savedCountryList);
         setFavouriteList(countryKeys);
-    }, [])
+    }, []);
 
-    function addFavourites(country) {
+    function addFavourites(countryKey) {
         let newFavouriteList;
-        if(favouriteList.find(fav => fav === country.alpha3Code)) {
-            newFavouriteList = favouriteList.filter(favCountryKey => favCountryKey !== country.alpha3Code);
-            removeFromDatabaseCart(country.alpha3Code);
+        if(favouriteList.find(fav => fav === countryKey)) {
+            newFavouriteList = favouriteList.filter(favCountryKey => favCountryKey !== countryKey);
+            removeFromDatabaseCart(countryKey);
         }
         else {
-            newFavouriteList = [...favouriteList, country.alpha3Code];
-            addToDatabaseCart(country.alpha3Code);
+            newFavouriteList = [...favouriteList, countryKey];
+            addToDatabaseCart(countryKey);
         }
 
         setFavouriteList(newFavouriteList);
@@ -52,7 +51,7 @@ const Home = () => {
     return (
         <div className="home">
             <Header />
-            <SideNav favouriteList={favouriteList} />            
+            <SideNav favouriteList={favouriteList} />
 
             <div className="left-margin country-section">
                 <h1 className="headline">Region: {headline} ({countryList.length})</h1>
