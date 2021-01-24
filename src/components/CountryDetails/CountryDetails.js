@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './CountryDetails.css';
 import { useParams } from 'react-router-dom';
 import Header from '../Header/Header';
 import SideNav from '../SideNav/SideNav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { addToDatabase, getDatabase, removeFromDatabase } from '../../utilities/databaseManager';
+import { MyContext } from '../../App';
 
 const CountryDetails = () => {
+    const {favouriteList, setFavouriteList, addFavourites} = useContext(MyContext);
     const {countryKey} = useParams();
     const [countryDetails, setCountryDetails] = useState({});
     const {flag, name, capital, demonym, alpha3Code, region, subregion, population, languages, currencies, timezones} = countryDetails;
@@ -26,26 +27,7 @@ const CountryDetails = () => {
         .then(data => setCountryDetails(data));
     }, [countryKey]);
 
-    const [favouriteList, setFavouriteList] = useState([]);
-    useEffect(() => {
-        const savedCountryList = getDatabase();
-        const countryKeys = Object.keys(savedCountryList);
-        setFavouriteList(countryKeys);
-    }, []);
-
-    function addFavourites(countryKey) {
-        let newFavouriteList;
-        if(favouriteList.find(fav => fav === countryKey)) {
-            newFavouriteList = favouriteList.filter(favCountryKey => favCountryKey !== countryKey);
-            removeFromDatabase(countryKey);
-        }
-        else {
-            newFavouriteList = [...favouriteList, countryKey];
-            addToDatabase(countryKey);
-        }
-
-        setFavouriteList(newFavouriteList);
-    }
+    
 
     let starIcon = <FontAwesomeIcon onClick={()=>addFavourites(countryKey)} style={{color: "black"}} className="star-icon" icon={faStar} />
     if(favouriteList.find(fav => fav === countryKey)) {
@@ -55,7 +37,7 @@ const CountryDetails = () => {
     return (
         <div className="country-details">
             <Header />
-            <SideNav favouriteList={favouriteList} />
+            <SideNav />
 
             <div className="left-margin">
                 <img src={flag} alt=""/>

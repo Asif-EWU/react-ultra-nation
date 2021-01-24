@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './SingleCountry.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
+import { MyContext } from '../../App';
 
 const SingleCountry = (props) => {
+    const {favouriteList, addFavourites} = useContext(MyContext);
     const [country, setCountry] = useState({});
-    const {countryKey, favouriteList, addFavourites} = props;
+    const {countryKey} = props;
     const {flag, name, region} = country;
 
     useEffect(() => {

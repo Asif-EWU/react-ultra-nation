@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { addToDatabase, getDatabase, removeFromDatabase } from '../../utilities/databaseManager';
 import Header from '../Header/Header';
 import SideNav from '../SideNav/SideNav';
 import SingleCountry from '../SingleCountry/SingleCountry';
@@ -26,32 +25,11 @@ const Home = () => {
         const countryKeys = data.map(country => country.alpha3Code);
         setCountryList(countryKeys);
     }
-    
-    const [favouriteList, setFavouriteList] = useState([]);
-    useEffect(() => {
-        const savedCountryList = getDatabase();
-        const countryKeys = Object.keys(savedCountryList);
-        setFavouriteList(countryKeys);
-    }, []);
-
-    function addFavourites(countryKey) {
-        let newFavouriteList;
-        if(favouriteList.find(fav => fav === countryKey)) {
-            newFavouriteList = favouriteList.filter(favCountryKey => favCountryKey !== countryKey);
-            removeFromDatabase(countryKey);
-        }
-        else {
-            newFavouriteList = [...favouriteList, countryKey];
-            addToDatabase(countryKey);
-        }
-
-        setFavouriteList(newFavouriteList);
-    }
 
     return (
         <div className="home">
             <Header />
-            <SideNav favouriteList={favouriteList} />
+            <SideNav />
 
             <div className="left-margin country-section">
                 <h1 className="headline">Region: {headline} ({countryList.length})</h1>
@@ -59,8 +37,6 @@ const Home = () => {
                     countryList.map(countryKey => <SingleCountry 
                         key={countryKey}
                         countryKey={countryKey} 
-                        favouriteList={favouriteList}
-                        addFavourites={addFavourites}
                     />)
                 }
             </div>

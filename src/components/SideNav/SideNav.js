@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { MyContext } from '../../App';
 import './SideNav.css';
 
 const SideNav = (props) => {
-    const favouriteList = props.favouriteList;
+    const {favouriteList} = useContext(MyContext);
     
     return (
         <div className="side-nav">
